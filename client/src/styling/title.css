@@ -1,0 +1,9 @@
+.title {
+    top: 100px;
+    position: absolute;
+}
+
+.titleDiv {
+    display: flex;
+    justify-content: center;
+}
