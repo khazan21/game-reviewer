@@ -9,16 +9,6 @@ const mockReviews = [{
   id: 2,
   reviewer_name: 'Sadaf',
   review: 'yoooo'
-  },
-  {
-    id: 3,
-    reviewer_name: 'Sadaf',
-    review: 'yoooo'
-  },
-  {
-    id: 3,
-    reviewer_name: 'Sadaf',
-    review: 'yoooo'
   }];
 
 function Review() {
