@@ -1,8 +1,11 @@
 import React from 'react'
 import '../styling/games.css'
 import GameCard from './GameCard'
+import { useHistory } from 'react-router-dom'
 
 function Games() {
+
+    const history = useHistory();
 
     const testGame = {
         title: 'Call of Duty: Warzone',
@@ -11,8 +14,12 @@ function Games() {
 
     const gameArray = Array.from({length: 15}).map((a, i) => <GameCard key={i} game={testGame}/>)
 
+    function reviewGame() {
+        history.push('/review')
+    }
+
     return (
-        <div className='parentContainer'>
+        <div onClick={reviewGame} className='parentContainer'>
             {gameArray}
         </div>
     )

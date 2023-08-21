@@ -39,3 +39,14 @@ class Game(db.Model):
 
     def __repr__(self):
         return f'<Game: {self.id}, {self.game_name}>'
+
+class Review(db.Model):
+
+    __tablename__ = 'reviews'
+
+    id = db.Column(db.Integer, primary_key=True)
+    reviewer_name = db.Column(db.String)
+    review = db.Column(db.String)
+
+    def __repr__(self):
+        return f'<Review: {self.id}, {self.reviewer_name}, {self.review}>'
