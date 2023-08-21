@@ -1,6 +1,7 @@
 body {
     margin: 0;
     font-family: monospace;
+    font-size: large;   
 }
 
 .parentContainer {
@@ -13,7 +14,7 @@ body {
 .container {
     text-align: center;
     border: grey solid 1px;
-    padding: 1rem;
+    padding: 10px;
     width: 15rem;
     height: 15rem;
     display: inline-grid;
