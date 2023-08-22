@@ -2,16 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import '../styling/review.css';
 import { UserContext } from '../context/user';
 
-const mockReviews = [{
-  id: 1,
-  reviewer_name: 'Robert',
-  review: 'wassup'
-}, {
-  id: 2,
-  reviewer_name: 'Sadaf',
-  review: 'yoooo'
-}];
-
 function Review() {
 
   const { user } = useContext(UserContext);
@@ -28,9 +18,6 @@ function Review() {
         }
       })
   }, [])
-
-
-  console.log(reviews);
 
   const [newReview, setNewReview] = useState('');
 

@@ -1,7 +1,7 @@
 from flask import make_response, request;
 from flask_restful import Resource; 
 from config import app, db, api; 
-from models import User, Review;
+from models import User, Review, Game;
 
 class Users(Resource):
     def post(self):
@@ -31,13 +31,31 @@ class Login(Resource):
                 return make_response({'error': 'Password does not match username.'}, 404)
     
 api.add_resource(Login, '/login')
-    
+
+class Games(Resource):
+    def get(self):
+        games = Game.query.all()
+        dict_games = [r.to_dict() for r in games]
+
+        return make_response(dict_games, 200)
+
+api.add_resource(Games, '/games')
+
+class GamesById(Resource):
+    def get(self):
+        game = Game.query.get(id)
+        dict_game = [r.to_dict() for r in game]
+
+        return make_response(dict_game, 200)
+
+api.add_resource(GamesById, '/games/<int:id>')
+
 class Reviews(Resource):
     def get(self):
         reviews = Review.query.all()
-        dictReviews = [r.to_dict() for r in reviews]
+        dict_reviews = [r.to_dict() for r in reviews]
 
-        return make_response(dictReviews, 200)
+        return make_response(dict_reviews, 200)
 
     def post(self):
 
