@@ -33,13 +33,11 @@ function Signup() {
         else {
           r.json()
             .then(data => {
-              console.log(data)
+              alert(data.error)
             })
         }
       })
   }
-
-  console.log(userName, password);
 
   return (
     <>

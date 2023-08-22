@@ -11,16 +11,29 @@ class User(db.Model, SerializerMixin):
     user_name = db.Column(db.String)
     _password_hash = db.Column(db.String, nullable = False)
 
+    @validates('user_name')
+    def validate_password(self, key, new_username):
+        if type(new_username) is str and len(new_username) >= 4:
+            return new_username
+        else:
+            raise ValueError("Username must be 4 or more characters") 
+
     @property
     def password_hash(self):
         return self._password_hash
 
     @password_hash.setter
     def password_hash(self, new_password):
-        enc_new_password = new_password.encode('utf-8')
-        encrypted_hash = bcrypt.generate_password_hash(enc_new_password)
-        hash_password_str = encrypted_hash.decode('utf-8')
-        self._password_hash = hash_password_str
+
+        if type(new_password) is str and len(new_password) >= 4:
+            enc_new_password = new_password.encode('utf-8')
+            encrypted_hash = bcrypt.generate_password_hash(enc_new_password)
+            hash_password_str = encrypted_hash.decode('utf-8')
+            self._password_hash = hash_password_str
+
+        else:
+            raise ValueError("Password must be 4 or more characters") 
+
 
     def authenticate(self, password):
         enc_password = password.encode('utf-8')
@@ -28,14 +41,7 @@ class User(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<User: {self.id}, {self.user_name}>'
-    
-    @validates('_password_hash')
-    def validate_password(self, key, new_password):
-        if type(new_password) is str and len(new_password) >= 4:
-            return new_password
-        else:
-            raise ValueError("Password must be 4 or more characters") 
-    
+        
 class Game(db.Model, SerializerMixin):
 
     __tablename__ = 'games'
