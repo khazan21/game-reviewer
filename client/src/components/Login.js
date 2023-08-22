@@ -1,9 +1,12 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom'
 import Title from './Title';
+import { UserContext } from '../context/user.js';
 
 function Login() {
+
+    const { setUser } = useContext(UserContext);
 
     const history = useHistory();
 
@@ -25,8 +28,8 @@ function Login() {
             .then(r => {
                 if (r.ok) {
                     r.json()
-                        .then(data => {
-                            console.log(data)
+                        .then(user => {
+                            setUser(user);
                             history.push('/home')
                         })
                 }
@@ -44,7 +47,7 @@ function Login() {
     return (
         <>
             <Title display='Login'></Title>
-            <form onSubmit={handleSubmit}>
+            <form className='form' onSubmit={handleSubmit}>
                 <input
                     placeholder='Username'
                     type="text"

@@ -36,7 +36,7 @@ class User(db.Model, SerializerMixin):
         else:
             raise ValueError("Password must be 4 or more characters") 
     
-class Game(db.Model):
+class Game(db.Model, SerializerMixin):
 
     __tablename__ = 'games'
 
@@ -47,7 +47,7 @@ class Game(db.Model):
     def __repr__(self):
         return f'<Game: {self.id}, {self.game_name}>'
 
-class Review(db.Model):
+class Review(db.Model, SerializerMixin):
 
     __tablename__ = 'reviews'
 

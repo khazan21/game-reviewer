@@ -45,7 +45,7 @@ function Signup() {
     <>
       <Title display='Signup'></Title>
 
-      <form onSubmit={handleSubmit}>
+      <form className='form' onSubmit={handleSubmit}>
         <input
           placeholder='Username'
           type="text"
