@@ -1,7 +1,6 @@
 import React from "react";
 import Login from "./Login";
 import Signup from "./Signup";
-import Title from "./Title";
 import Home from "./Home";
 import Review from "./Review";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
@@ -12,7 +11,6 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/">
-          <Title></Title>
           <Authentication></Authentication>
         </Route>
         <Route path="/home">

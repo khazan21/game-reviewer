@@ -3,6 +3,7 @@
     border: 2px solid black;
     box-shadow: 10px 10px 10px skyblue;
     background-color: honeydew;
+    margin-top: 3rem;
 }
 
 .reviews {
@@ -28,7 +29,7 @@ h3 {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg,#ffffff, #00758a);
+    background: linear-gradient(135deg, #ffffff, #00758a);
 }
 
 ::-webkit-scrollbar-track {

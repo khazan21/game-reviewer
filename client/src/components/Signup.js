@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom'
-
+import Title from './Title';
 
 function Signup() {
 
@@ -42,25 +42,29 @@ function Signup() {
   console.log(userName, password);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        placeholder='Username'
-        type="text"
-        id="userName"
-        value={userName}
-        onChange={(e) => setUserName(e.target.value)}
-      />
+    <>
+      <Title display='Signup'></Title>
 
-      <input
-        placeholder='Password'
-        type="password"
-        id="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <form onSubmit={handleSubmit}>
+        <input
+          placeholder='Username'
+          type="text"
+          id="userName"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        />
 
-      <button type="submit">Signup</button>
-    </form>
+        <input
+          placeholder='Password'
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <button type="submit">Signup</button>
+      </form>
+    </>
   )
 }
 

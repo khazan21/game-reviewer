@@ -1,6 +1,6 @@
 .title {
-    top: 100px;
-    position: absolute;
+    text-shadow: 10px 10px 10px #0038b0;
+    font-size: xx-large;
 }
 
 .titleDiv {

@@ -1,10 +1,10 @@
 import React from 'react'
 import '../styling/title.css'
 
-function Title() {
+function Title({display}) {
     return (
         <div className='titleDiv'>
-            <header className='title'>Game Reviewer</header>
+            <h1 className='title'>{display}</h1>
         </div>
     )
 }

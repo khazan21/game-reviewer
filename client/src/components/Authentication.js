@@ -1,20 +1,23 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import '../styling/style.css'
-import '../styling/title.css'
+import Title from './Title';
 
 function Authentication() {
 
     const history = useHistory();
 
     return (
-        <div className='wrap'>
+        <>
+            <Title display='Game Reviewer'></Title>
 
-            <div className='authenticator'>
-                <button className='button' onClick={() => history.push('/login')}>Login</button>
-                <button className='button' onClick={() => history.push('/signup')}>Signup</button>
+            <div className='wrap'>
+                <div className='authenticator'>
+                    <button className='button' onClick={() => history.push('/login')}>Login</button>
+                    <button className='button' onClick={() => history.push('/signup')}>Signup</button>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

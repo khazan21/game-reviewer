@@ -29,6 +29,13 @@ class User(db.Model, SerializerMixin):
     def __repr__(self):
         return f'<User: {self.id}, {self.user_name}>'
     
+    @validates('_password_hash')
+    def validate_password(self, key, new_password):
+        if type(new_password) is str and len(new_password) >= 4:
+            return new_password
+        else:
+            raise ValueError("Password must be 4 or more characters") 
+    
 class Game(db.Model):
 
     __tablename__ = 'games'
