@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../styling/review.css';
 import { UserContext } from '../context/user';
+import { useParams } from 'react-router-dom';
 
 function Review() {
+
+  const {gameId} = useParams();
 
   const { user } = useContext(UserContext);
 

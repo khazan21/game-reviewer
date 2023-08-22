@@ -6,16 +6,14 @@ function GameCard({ game }) {
 
     const history = useHistory();
 
-    const { image, title } = game;
-
     function reviewGame() {
-        history.push('/review')
+        history.push(`/review/${game.id}`)
     }
 
     return (
-        <div onClick={reviewGame} className='container' title={title}>
-            <h2 className='gameTitle'>{title}</h2>
-            <img src={image}></img>
+        <div onClick={reviewGame} className='container' title={game.game_name}>
+            <h2 className='gameTitle'>{game.game_name}</h2>
+            <img src={game.game_pic}></img>
         </div>
     )
 }

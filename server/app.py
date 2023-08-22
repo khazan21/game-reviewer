@@ -42,9 +42,9 @@ class Games(Resource):
 api.add_resource(Games, '/games')
 
 class GamesById(Resource):
-    def get(self):
+    def get(self, id):
         game = Game.query.get(id)
-        dict_game = [r.to_dict() for r in game]
+        dict_game = game.to_dict() 
 
         return make_response(dict_game, 200)
 

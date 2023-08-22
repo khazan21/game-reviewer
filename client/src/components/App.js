@@ -22,7 +22,7 @@ function App() {
         <Route path="/signup">
           <Signup></Signup>
         </Route>
-        <Route path="/review">
+        <Route path="/review/:gameId">
           <Review></Review>
         </Route>
       </Switch>
