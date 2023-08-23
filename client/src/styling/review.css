@@ -3,32 +3,102 @@
     border: 2px solid black;
     box-shadow: 10px 10px 10px skyblue;
     background-color: honeydew;
-    margin-top: 3rem;
+    width: 800px;
+}
+
+.review-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+
+.review-user {
+    display: flex;
+    align-items: center;
+}
+
+.review {
+    display: flex;
+    align-items: baseline;
+}
+
+.review-content {
+    display: grid;
+    grid-auto-flow: dense;
+    grid-template-columns: .5fr 1fr 1fr;
+    align-items: self-start;
+
 }
 
 .reviews {
-    overflow-y: auto;
     height: 60vh;
     background-color: whitesmoke;
     border: .5px solid black;
+    padding: 10px;
+    overflow-y: auto;
 }
 
-h3 {
-    text-align: center;
+.submitReview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.delete-button {
+.deleteBtn {
     color: red;
-    cursor: pointer;
-    font-size: 16px;
-    margin-left: 10px;
+    font-weight: 550;
+    margin: 5px;
 }
 
-.update-button {
+.updateBtn {
     color: blue;
-    cursor: pointer;
+    font-weight: 550;
+    margin: 5px;
+}
+
+.submitBtn {
+    margin: 15px;
+    background-color: #3498db;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
     font-size: 16px;
-    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+}
+
+.submitBtn:hover {
+    background-color: #2980b9;
+}
+
+.reviewInput {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+
+}
+
+.reviewInput:focus {
+    border-color: #0480e5;
+    box-shadow: 0 0 5px skyblue(0, 123, 255, 0.5);
+}
+
+.reviewInput::placeholder {
+    color: #999;
+}
+
+.reviewInput:disabled {
+    background-color: #f2f2f2;
+    cursor: not-allowed;
 }
 
 ::-webkit-scrollbar {
