@@ -61,7 +61,8 @@ class Reviews(Resource):
 
         data = request.get_json()
         try:
-            new_review = Review(review = data['review'], reviewer_name = data['reviewer_name'])
+            new_review = Review(review = data['review'], reviewer_name = data['reviewer_name'], 
+                                game_id = data['game_id'], user_id = data['user_id'])
         except Exception as e:
             return make_response({'error': str(e)}, 404)
     

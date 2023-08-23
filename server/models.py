@@ -11,6 +11,10 @@ class User(db.Model, SerializerMixin):
     user_name = db.Column(db.String)
     _password_hash = db.Column(db.String, nullable = False)
 
+    reviews = db.relationship('Review', back_populates = 'user')
+
+    serialize_rules = ('-reviews.user', '-_password_hash')
+
     @validates('user_name')
     def validate_password(self, key, new_username):
         if type(new_username) is str and len(new_username) >= 4:
@@ -50,6 +54,10 @@ class Game(db.Model, SerializerMixin):
     game_name = db.Column(db.String)
     game_pic = db.Column(db.String)
 
+    reviews = db.relationship('Review', back_populates = 'game')
+
+    serialize_rules = ('-reviews.game',)
+
     def __repr__(self):
         return f'<Game: {self.id}, {self.game_name}>'
 
@@ -60,6 +68,14 @@ class Review(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     reviewer_name = db.Column(db.String)
     review = db.Column(db.String)
+
+    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    user = db.relationship('User', back_populates = 'reviews')
+    game = db.relationship('Game', back_populates = 'reviews')
+
+    serialize_rules = ('-user.reviews', '-game.reviews')
 
     def __repr__(self):
         return f'<Review: {self.id}, {self.reviewer_name}, {self.review}>'

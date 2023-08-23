@@ -24,6 +24,10 @@ body {
     cursor: pointer;
 }
 
+.container:hover {
+    transform: scale(1.05);
+}
+
 .gameTitle {
     background: #ffffff;
     opacity: 0.8;

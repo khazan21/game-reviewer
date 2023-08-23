@@ -9,14 +9,16 @@ function Review() {
 
   const { user } = useContext(UserContext);
 
+  const [game, setGame] = useState(null);
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5555/reviews')
+    fetch(`http://127.0.0.1:5555/games/${gameId}`)
       .then(r => {
         if (r.ok) {
-          r.json().then(reviews => {
-            setReviews(reviews);
+          r.json().then(game => {
+            setGame(game);
+            setReviews(game.reviews)
           })
         }
       })
@@ -29,7 +31,9 @@ function Review() {
 
     const formObj = {
       reviewer_name: user.user_name,
-      review: newReview
+      review: newReview,
+      game_id: game.id,
+      user_id: user.id
     }
 
     fetch('http://127.0.0.1:5555/reviews', {
@@ -41,7 +45,7 @@ function Review() {
         if (r.ok) {
           r.json()
             .then(data => {
-              console.log(data)
+              setReviews([...reviews, data]);
             })
         }
         else {
@@ -57,7 +61,7 @@ function Review() {
   return (
     <div className='review-list'>
       <ul className='reviews'>
-        {reviews.map(review => (
+        {game && reviews.map(review => (
           <div key={review.id}>
             <p>{review.reviewer_name}: {review.review}</p>
           </div>
@@ -73,7 +77,7 @@ function Review() {
           onChange={(event) => setNewReview(event.target.value)}
         />
 
-        <button type="submit">Submit Review</button>
+        <button disabled={!user} type="submit">Submit Review</button>
       </form>
     </div>
   );
