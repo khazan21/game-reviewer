@@ -8,7 +8,7 @@ function Games() {
     const [games, setGames] = useState([]);
 
     useEffect(() => {
-        fetch('http://127.0.0.1:5555/games')
+        fetch('/games')
             .then(r => {
                 if (r.ok) {
                     r.json().then(games => {

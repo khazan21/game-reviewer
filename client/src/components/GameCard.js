@@ -7,7 +7,7 @@ function GameCard({ game }) {
     const history = useHistory();
 
     function reviewGame() {
-        history.push(`/review/${game.id}`)
+        history.push(`/reviews/${game.id}`)
     }
 
     return (

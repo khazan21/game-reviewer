@@ -12,7 +12,7 @@ function Review() {
   const [newReview, setNewReview] = useState('');
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5555/games/${gameId}`)
+    fetch(`/games/${gameId}`)
       .then((r) => {
         if (r.ok) {
           r.json().then((game) => {
@@ -32,7 +32,7 @@ function Review() {
       user_id: user.id,
     };
 
-    fetch('http://127.0.0.1:5555/reviews', {
+    fetch('/reviews', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formObj),
