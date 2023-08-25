@@ -66,7 +66,6 @@ class Review(db.Model, SerializerMixin):
     __tablename__ = 'reviews'
 
     id = db.Column(db.Integer, primary_key=True)
-    reviewer_name = db.Column(db.String)
     review = db.Column(db.String)
 
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
