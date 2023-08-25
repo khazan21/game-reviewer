@@ -51,13 +51,35 @@ function Review() {
     setNewReview('');
   };
 
+  const handleDelete = (reviewId) => {
+    fetch(`/reviews/${reviewId}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        if (response.ok) {
+          setReviews(reviews.filter(review => review.id !== reviewId));
+        } else {
+          console.log('Error deleting review:', response.statusText);
+        }
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  };
+
   return (
     <div className='review-list'>
       <ul className='reviews'>
         {game &&
           reviews.map((review) => (
-            <div key={review.id}>
-              <p>
+            <div key={review.id} className="review-item">
+              <div className="review-buttons">
+                {user && user.id === review.user.id && (
+                  <button className='reviewBtn' onClick={() => handleDelete(review.id)}>X</button>
+                )}
+                <button className='reviewBtn'>✎</button>
+              </div>              <p>
                 <span className='review-username'>
                   {review.user.user_name}:
                 </span>{' '}

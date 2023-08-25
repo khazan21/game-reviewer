@@ -1,4 +1,4 @@
-from flask import make_response, request, session;
+from flask import make_response, request, session, jsonify;
 from flask_restful import Resource; 
 from config import app, db, api; 
 from models import User, Review, Game;
@@ -79,7 +79,6 @@ class Reviews(Resource):
         return make_response(dict_reviews, 200)
 
     def post(self):
-
         data = request.get_json()
         try:
             new_review = Review(review = data['review'], 
@@ -96,14 +95,24 @@ api.add_resource(Reviews, '/reviews')
 
 class ReviewById(Resource):
     def patch(self, id):
-        pass
+        dictionary = request.get_json()
+        review = Review.query.filter_by(id=id).first()
+        for key in dictionary:
+            setattr(review, key, dictionary[key])
+        db.session.commit()
+
+        return make_response(jsonify(review.to_dict()), 200)
 
     def delete(self, id):
-        pass
+        review = Review.query.filter_by(id=id).first()
+
+        db.session.delete(review)
+        db.session.commit()
+
+        response = make_response(jsonify({"message": f"Review id {id} has been deleted"}), 200)
+        return response
 
 api.add_resource(ReviewById, '/reviews/<int:id>')
-
-
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

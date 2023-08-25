@@ -24,25 +24,12 @@
 
 .review-username {
     color: rgb(230, 0, 173);
+    margin-right: 10px;
 }
 
 h3 {
     text-align: center;
     margin-bottom: 1rem;
-}
-
-.delete-button,
-.update-button {
-    color: #e74c3c;
-    cursor: pointer;
-    font-size: 16px;
-    margin-left: 10px;
-    transition: color 0.3s ease;
-}
-
-.delete-button:hover,
-.update-button:hover {
-    color: #c0392b;
 }
 
 .form {
@@ -76,4 +63,17 @@ h3 {
 
 .form button:hover:enabled {
     background-color: #2980b9;
+}
+
+.review-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.review-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-right: 10px;
 }
