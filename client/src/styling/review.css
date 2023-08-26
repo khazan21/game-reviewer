@@ -77,3 +77,13 @@ h3 {
     align-items: stretch;
     margin-right: 10px;
 }
+
+.deleteBtn {
+    font-weight: bolder;
+    color: red;
+}
+
+.updatewBtn {
+    font-weight: bolder;
+    color: blue;
+}

@@ -76,10 +76,11 @@ function Review() {
             <div key={review.id} className="review-item">
               <div className="review-buttons">
                 {user && user.id === review.user.id && (
-                  <button className='reviewBtn' onClick={() => handleDelete(review.id)}>X</button>
+                  <button className='deleteBtn' title='Delete' onClick={() => handleDelete(review.id)}>X</button>
                 )}
-                <button className='reviewBtn'>✎</button>
-              </div>              <p>
+                <button className='updatewBtn' title='Update'>✎</button>
+              </div>            
+              <p>
                 <span className='review-username'>
                   {review.user.user_name}:
                 </span>{' '}
