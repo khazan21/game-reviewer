@@ -87,16 +87,38 @@ h3 {
     font-weight: bolder;
     color: red;
     width: 30px;
+    cursor: pointer;
 }
 
 .updateBtn {
     font-weight: bolder;
     color: blue;
     width: 30px;
+    cursor: pointer;
 }
 
 .confirmBtn {
     font-weight: bolder;
     color: Green;
     width: 30px;
+    cursor: pointer;
+}
+
+.backBtn {
+background-color: rgba(79, 209, 197, .64);    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    font-weight: 450;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1;
+}
+
+.backBtn:hover {
+    background-color: #4fd1c5;
 }

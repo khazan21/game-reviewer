@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../styling/review.css';
+import { useHistory } from 'react-router-dom';
 import { UserContext } from '../context/user';
 import { useParams } from 'react-router-dom';
 
 function Review() {
+  const history = useHistory();
   const { gameId } = useParams();
   const { user } = useContext(UserContext);
 
@@ -68,12 +70,11 @@ function Review() {
       const response = await fetch(`/reviews/${reviewId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ review: editReview }), // Send the updated review
+        body: JSON.stringify({ review: editReview }),
       });
 
       if (response.ok) {
         const updatedReview = await response.json();
-        // Update the reviews state to reflect the changes
         setReviews(reviews.map((review) => (review.id === reviewId ? updatedReview : review)));
       } else {
         console.log('Error updating review:', response.statusText);
@@ -102,6 +103,10 @@ function Review() {
 
   return (
     <div className='review-list'>
+      <button className='backBtn' onClick={() => history.goBack()}>
+        Back to Home
+      </button>
+
       <ul className='reviews'>
         {game &&
           reviews.map((review) => (
@@ -147,7 +152,7 @@ function Review() {
                   </span>{' '}
                 </p>
                 {edit === review.id ? (
-                  <form className='edit-input-container'>
+                  <form onSubmit={(e) => handlePatch(e, review.id)} className='edit-input-container'>
                     <input
                       className='edit-input'
                       id='review'

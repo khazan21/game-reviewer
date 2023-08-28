@@ -9,7 +9,7 @@ class Users(Resource):
         try:
             new_user = User(user_name = data['userName'], password_hash = data['password'])
         except Exception as e:
-            return make_response({'error': str(e)}, 404)
+            return make_response({'error': str(e)}, 422)
         db.session.add(new_user)
         db.session.commit()
         
