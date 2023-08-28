@@ -10,21 +10,28 @@ function Review() {
   const [game, setGame] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState('');
+  const [editReview, setEditReview] = useState('');
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
-    fetch(`/games/${gameId}`)
-      .then((r) => {
-        if (r.ok) {
-          r.json().then((game) => {
-            setGame(game);
-            setReviews(game.reviews);
-          });
+    const fetchGameDetails = async () => {
+      try {
+        const response = await fetch(`/games/${gameId}`);
+        if (response.ok) {
+          const gameData = await response.json();
+          setGame(gameData);
+          setReviews(gameData.reviews);
         }
-      });
+      } catch (error) {
+        console.error('Error fetching game details:', error);
+      }
+    };
+
+    fetchGameDetails();
   }, [gameId]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     const formObj = {
       review: newReview,
@@ -32,40 +39,65 @@ function Review() {
       user_id: user.id,
     };
 
-    fetch('/reviews', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formObj),
-    })
-      .then((r) => {
-        if (r.ok) {
-          r.json().then((data) => {
-            setReviews([...reviews, data]);
-          });
-        } else {
-          r.json().then((data) => {
-            console.log(data);
-          });
-        }
+    try {
+      const response = await fetch('/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formObj),
       });
+
+      if (response.ok) {
+        const data = await response.json();
+        setReviews([...reviews, data]);
+      } else {
+        const errorData = await response.json();
+        console.log('Error:', errorData);
+      }
+    } catch (error) {
+      console.error('Error submitting review:', error);
+    }
+
     setNewReview('');
   };
 
-  const handleDelete = (reviewId) => {
-    fetch(`/reviews/${reviewId}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((response) => {
-        if (response.ok) {
-          setReviews(reviews.filter(review => review.id !== reviewId));
-        } else {
-          console.log('Error deleting review:', response.statusText);
-        }
-      })
-      .catch((error) => {
-        console.log('Error:', error);
+  const handlePatch = async (e, reviewId) => {
+    e.preventDefault();
+    setEdit(false);
+
+    try {
+      const response = await fetch(`/reviews/${reviewId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ review: editReview }), // Send the updated review
       });
+
+      if (response.ok) {
+        const updatedReview = await response.json();
+        // Update the reviews state to reflect the changes
+        setReviews(reviews.map((review) => (review.id === reviewId ? updatedReview : review)));
+      } else {
+        console.log('Error updating review:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error updating review:', error);
+    }
+  };
+
+  const handleDelete = async (reviewId) => {
+    try {
+      const response = await fetch(`/reviews/${reviewId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (response.ok) {
+        setReviews(reviews.filter((review) => review.id !== reviewId));
+      } else {
+        console.log('Error deleting review:', response.statusText);
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
   };
 
   return (
@@ -73,19 +105,61 @@ function Review() {
       <ul className='reviews'>
         {game &&
           reviews.map((review) => (
-            <div key={review.id} className="review-item">
-              <div className="review-buttons">
-                {user && user.id === review.user.id && (
-                  <button className='deleteBtn' title='Delete' onClick={() => handleDelete(review.id)}>X</button>
+            <div key={review.id} className='review-item'>
+              <div>
+                {user !== null &&
+                  (user.id === review.user.id ? (
+                    <div className='review-buttons'>
+                      {edit === review.id ? (
+                        <button
+                          className='confirmBtn'
+                          title='Update'
+                          onClick={(e) => handlePatch(e, review.id)}
+                        >
+                          ✓
+                        </button>
+                      ) : (
+                        <button
+                          className='updateBtn'
+                          title='Update'
+                          onClick={() => {
+                            setEdit(review.id);
+                            setEditReview(review.review);
+                          }}
+                        >
+                          ✎
+                        </button>
+                      )}
+                      <button
+                        className='deleteBtn'
+                        title='Delete'
+                        onClick={() => handleDelete(review.id)}
+                      >
+                        X
+                      </button>
+                    </div>
+                  ) : null)}
+              </div>
+              <div className='review-container'>
+                <p>
+                  <span className='review-username'>
+                    {review.user.user_name}:
+                  </span>{' '}
+                </p>
+                {edit === review.id ? (
+                  <form className='edit-input-container'>
+                    <input
+                      className='edit-input'
+                      id='review'
+                      onChange={(e) => setEditReview(e.target.value)}
+                      type='text'
+                      value={editReview}
+                    />
+                  </form>
+                ) : (
+                  <p>{review.review}</p>
                 )}
-                <button className='updatewBtn' title='Update'>✎</button>
-              </div>            
-              <p>
-                <span className='review-username'>
-                  {review.user.user_name}:
-                </span>{' '}
-                {review.review}
-              </p>
+              </div>
             </div>
           ))}
       </ul>

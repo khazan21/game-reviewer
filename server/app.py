@@ -95,13 +95,15 @@ api.add_resource(Reviews, '/reviews')
 
 class ReviewById(Resource):
     def patch(self, id):
-        dictionary = request.get_json()
+        data = request.get_json()
         review = Review.query.filter_by(id=id).first()
-        for key in dictionary:
-            setattr(review, key, dictionary[key])
-        db.session.commit()
-
-        return make_response(jsonify(review.to_dict()), 200)
+        if review:
+            for key in data:
+                setattr(review, key, data[key])
+            db.session.commit()
+            return make_response(review.to_dict(), 200)
+        else:
+            return make_response({'error': 'Review not found.'}, 404)
 
     def delete(self, id):
         review = Review.query.filter_by(id=id).first()
@@ -116,4 +118,3 @@ api.add_resource(ReviewById, '/reviews/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
-
