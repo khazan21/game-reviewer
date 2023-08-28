@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 function Review() {
   const history = useHistory();
   const { gameId } = useParams();
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const [game, setGame] = useState(null);
   const [reviews, setReviews] = useState([]);
@@ -101,8 +101,33 @@ function Review() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('/logout', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (response.ok) {
+        setUser(null);
+        history.push('/');
+      } else {
+        console.log('Error logging out:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+
   return (
     <div className='review-list'>
+      <div className='top-right'>
+        {user ? (
+          <button className='logoutBtn' onClick={handleLogout}>
+            Logout
+          </button>
+        ) : null}
+      </div>
       <button className='backBtn' onClick={() => history.goBack()}>
         Back to Home
       </button>

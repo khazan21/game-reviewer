@@ -105,7 +105,8 @@ h3 {
 }
 
 .backBtn {
-background-color: rgba(79, 209, 197, .64);    color: #fff;
+    background-color: rgba(79, 209, 197, .64);
+    color: #fff;
     padding: 10px 20px;
     border: none;
     border-radius: 50px;
@@ -120,5 +121,25 @@ background-color: rgba(79, 209, 197, .64);    color: #fff;
 }
 
 .backBtn:hover {
+    background-color: #4fd1c5;
+}
+
+.logoutBtn {
+    background-color: rgba(79, 209, 197, .64);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    font-weight: 450;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1;
+}
+
+.logoutBtn:hover {
     background-color: #4fd1c5;
 }
