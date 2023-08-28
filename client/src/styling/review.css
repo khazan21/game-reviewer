@@ -1,5 +1,5 @@
 .review-list {
-    height: 600px;
+    height: 650px;
     width: 750px;
     padding: 25px;
     border: 2px solid #333;
@@ -9,6 +9,7 @@
     margin-bottom: 3rem;
     border-radius: 10px;
     overflow: hidden;
+    flex: 1;
 }
 
 .reviews {
@@ -90,7 +91,7 @@ h3 {
     cursor: pointer;
 }
 
-.updateBtn {
+.editBtn {
     font-weight: bolder;
     color: blue;
     width: 30px;
@@ -102,6 +103,10 @@ h3 {
     color: Green;
     width: 30px;
     cursor: pointer;
+}
+
+.submitBtn {
+    margin-top: 20px;
 }
 
 .backBtn {
@@ -142,4 +147,22 @@ h3 {
 
 .logoutBtn:hover {
     background-color: #4fd1c5;
+}
+
+.ql-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.ql-editor {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.ql-toolbar {
+    border-radius: 5px;
+}
+
+.input-container {
+    width: 100%;
 }

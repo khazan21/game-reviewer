@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../styling/review.css';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../context/user';
 import { useParams } from 'react-router-dom';
@@ -119,15 +121,17 @@ function Review() {
     }
   };
 
+  const modules = {
+    toolbar: [
+      [{ font: [] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['clean']
+    ]
+  };
+
   return (
     <div className='review-list'>
-      <div className='top-right'>
-        {user ? (
-          <button className='logoutBtn' onClick={handleLogout}>
-            Logout
-          </button>
-        ) : null}
-      </div>
       <button className='backBtn' onClick={() => history.goBack()}>
         Back to Home
       </button>
@@ -143,15 +147,15 @@ function Review() {
                       {edit === review.id ? (
                         <button
                           className='confirmBtn'
-                          title='Update'
+                          title='Confirm'
                           onClick={(e) => handlePatch(e, review.id)}
                         >
                           ✓
                         </button>
                       ) : (
                         <button
-                          className='updateBtn'
-                          title='Update'
+                          className='editBtn'
+                          title='Edit'
                           onClick={() => {
                             setEdit(review.id);
                             setEditReview(review.review);
@@ -178,17 +182,18 @@ function Review() {
                 </p>
                 {edit === review.id ? (
                   <form onSubmit={(e) => handlePatch(e, review.id)} className='edit-input-container'>
-                    <input
+                    <ReactQuill
+                      modules={modules}
                       className='edit-input'
-                      id='review'
-                      onChange={(e) => setEditReview(e.target.value)}
-                      type='text'
                       value={editReview}
+                      onChange={(value) => setEditReview(value)}
+                      placeholder='Edit your review...'
                     />
                   </form>
                 ) : (
-                  <p>{review.review}</p>
+                  <div dangerouslySetInnerHTML={{ __html: review.review }} />
                 )}
+
               </div>
             </div>
           ))}
@@ -197,13 +202,15 @@ function Review() {
       <form className='form' onSubmit={handleSubmit}>
         <h3>Leave a review!</h3>
 
-        <input
-          placeholder='Review'
+        <ReactQuill
+          modules={modules}
+          className='input-container'
           value={newReview}
-          onChange={(event) => setNewReview(event.target.value)}
+          onChange={(value) => setNewReview(value)}
+          placeholder='Write your review...'
         />
 
-        <button disabled={!user} type='submit'>
+        <button className='submitBtn' disabled={!user} type='submit'>
           Submit Review
         </button>
       </form>
