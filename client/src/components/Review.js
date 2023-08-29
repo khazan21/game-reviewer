@@ -87,6 +87,12 @@ function Review() {
   };
 
   const handleDelete = async (reviewId) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this review?');
+
+    if (!confirmDelete) {
+      return;
+    }
+
     try {
       const response = await fetch(`/reviews/${reviewId}`, {
         method: 'DELETE',
