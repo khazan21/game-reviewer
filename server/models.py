@@ -1,7 +1,7 @@
 from config import db, bcrypt;
 from sqlalchemy_serializer import SerializerMixin
-from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import validates
+from sqlalchemy.schema import UniqueConstraint
 
 class User(db.Model, SerializerMixin):
 
@@ -75,6 +75,20 @@ class Review(db.Model, SerializerMixin):
     game = db.relationship('Game', back_populates = 'reviews')
 
     serialize_rules = ('-user.reviews', '-game.reviews')
+
+    @validates('review')
+    def validate_review(self, key, review):
+        min_length = 1
+        max_length = 500
+
+        if min_length <= len(review) <= max_length:
+            return review
+        else:
+            raise ValueError("Review length must be between {} and {} characters.".format(min_length, max_length))
+        
+    __table_args__ = (
+        UniqueConstraint('user_id', 'game_id', name='_user_game_unique_constraint'),
+    )
 
     def __repr__(self):
         return f'<Review: {self.id}, {self.reviewer_name}, {self.review}>'

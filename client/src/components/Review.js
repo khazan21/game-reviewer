@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../styling/review.css';
+import Title from './Title';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useHistory } from 'react-router-dom';
@@ -137,90 +138,95 @@ function Review() {
   };
 
   return (
-    <div className='review-list'>
-      <button className='backBtn' onClick={() => history.goBack()}>
-        Back to Home
-      </button>
-
-      <ul className='reviews'>
-        {game &&
-          reviews.map((review) => (
-            <div key={review.id} className='review-item'>
-              <div>
-                {user !== null &&
-                  (user.id === review.user.id ? (
-                    <div className='review-buttons'>
-                      {edit === review.id ? (
-                        <button
-                          className='confirmBtn'
-                          title='Confirm'
-                          onClick={(e) => handlePatch(e, review.id)}
-                        >
-                          ✓
-                        </button>
-                      ) : (
-                        <button
-                          className='editBtn'
-                          title='Edit'
-                          onClick={() => {
-                            setEdit(review.id);
-                            setEditReview(review.review);
-                          }}
-                        >
-                          ✎
-                        </button>
-                      )}
-                      <button
-                        className='deleteBtn'
-                        title='Delete'
-                        onClick={() => handleDelete(review.id)}
-                      >
-                        X
-                      </button>
-                    </div>
-                  ) : null)}
-              </div>
-              <div className='review-container'>
-                <p>
-                  <span className='review-username'>
-                    {review.user.user_name}:
-                  </span>{' '}
-                </p>
-                {edit === review.id ? (
-                  <form onSubmit={(e) => handlePatch(e, review.id)} className='edit-input-container'>
-                    <ReactQuill
-                      modules={modules}
-                      className='edit-input'
-                      value={editReview}
-                      onChange={(value) => setEditReview(value)}
-                      placeholder='Edit your review...'
-                    />
-                  </form>
-                ) : (
-                  <div dangerouslySetInnerHTML={{ __html: review.review }} />
-                )}
-
-              </div>
-            </div>
-          ))}
-      </ul>
-
-      <form className='form' onSubmit={handleSubmit}>
-        <h3>Leave a review!</h3>
-
-        <ReactQuill
-          modules={modules}
-          className='input-container'
-          value={newReview}
-          onChange={(value) => setNewReview(value)}
-          placeholder='Write your review...'
-        />
-
-        <button className='submitBtn' disabled={!user} type='submit'>
-          Submit Review
+    <>
+      <div>
+        {game && <Title display={game.game_name}></Title>}
+      </div>
+      <div className='review-list'>
+        <button className='backBtn' onClick={() => history.goBack()}>
+          Back to Home
         </button>
-      </form>
-    </div>
+
+        <ul className='reviews'>
+          {game &&
+            reviews.map((review) => (
+              <div key={review.id} className='review-item'>
+                <div>
+                  {user !== null &&
+                    (user.id === review.user.id ? (
+                      <div className='review-buttons'>
+                        {edit === review.id ? (
+                          <button
+                            className='confirmBtn'
+                            title='Confirm'
+                            onClick={(e) => handlePatch(e, review.id)}
+                          >
+                            ✓
+                          </button>
+                        ) : (
+                          <button
+                            className='editBtn'
+                            title='Edit'
+                            onClick={() => {
+                              setEdit(review.id);
+                              setEditReview(review.review);
+                            }}
+                          >
+                            ✎
+                          </button>
+                        )}
+                        <button
+                          className='deleteBtn'
+                          title='Delete'
+                          onClick={() => handleDelete(review.id)}
+                        >
+                          X
+                        </button>
+                      </div>
+                    ) : null)}
+                </div>
+                <div className='review-container'>
+                  <p>
+                    <span className='review-username'>
+                      {review.user.user_name}:
+                    </span>{' '}
+                  </p>
+                  {edit === review.id ? (
+                    <form onSubmit={(e) => handlePatch(e, review.id)} className='edit-input-container'>
+                      <ReactQuill
+                        modules={modules}
+                        className='edit-input'
+                        value={editReview}
+                        onChange={(value) => setEditReview(value)}
+                        placeholder='Edit your review...'
+                      />
+                    </form>
+                  ) : (
+                    <div dangerouslySetInnerHTML={{ __html: review.review }} />
+                  )}
+
+                </div>
+              </div>
+            ))}
+        </ul>
+
+        <form className='form' onSubmit={handleSubmit}>
+          <h3>Leave a review!</h3>
+
+          <ReactQuill
+            modules={modules}
+            className='input-container'
+            value={newReview}
+            onChange={(value) => setNewReview(value)}
+            placeholder='Write your review...'
+          />
+
+          <button className='submitBtn' disabled={!user} type='submit'>
+            Submit Review
+          </button>
+        </form>
+      </div>
+    </>
   );
 }
 

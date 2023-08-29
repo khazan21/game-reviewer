@@ -17,7 +17,8 @@
     text-transform: uppercase;
     letter-spacing: 4px;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 5rem;
+    margin-top: 5rem;
     position: relative;
 }
 
@@ -64,7 +65,7 @@
     animation: blink 2s infinite;
 }
 
-p {
+.link {
     border-radius: 25px;
     background-color: #ffffff;
     color: black;

@@ -9,20 +9,19 @@ import { UserContext } from "../context/user";
 
 function App() {
 
-const {user, setUser} = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
 
-useEffect(() => {
-  fetch('/authenticate')
-    .then(r => {
-      if (r.ok) {
-        r.json().then(userObject => setUser(userObject))
-      }
-    })
-},[])
+  useEffect(() => {
+    fetch('/authenticate')
+      .then(r => {
+        if (r.ok) {
+          r.json().then(userObject => setUser(userObject))
+        }
+      })
+  }, [])
 
   return (
     <Router>
-      {/* {user? <h2>{user.user_name}</h2>: <h2>no one logged in</h2>} */}
       <Switch>
         <Route exact path="/">
           <Authentication></Authentication>
