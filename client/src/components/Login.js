@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import Title from './Title';
 import { UserContext } from '../context/user.js';
 
@@ -66,6 +66,7 @@ function Login() {
 
                 <button type="submit">Login</button>
             </form>
+            <p>Don't have an account? <Link to="/signup">Click here</Link> to create one.</p>
         </>
     )
 }

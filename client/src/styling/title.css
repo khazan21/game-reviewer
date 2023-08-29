@@ -11,7 +11,7 @@
 }
 
 .title {
-    font-family:'Courier New', Courier, monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 72px;
     color: #00f7ff;
     text-transform: uppercase;
@@ -62,4 +62,12 @@
 
 .animatedLetter {
     animation: blink 2s infinite;
+}
+
+p {
+    border-radius: 25px;
+    background-color: #ffffff;
+    color: black;
+    font-weight: 550;
+    padding: 8px;
 }
